@@ -13,8 +13,8 @@ class ProductRepositoryTest {
 
     Book bookOne = new Book(1, "Ведьмак: Последнее желание", 420, "Сапковский А.");
     Book bookTwo = new Book(2, "Гиперион", 420, "Симмонс Д.");
-    SmartPhone smartPhoneOne = new SmartPhone(6, "Mi 9T Pro", 26000, "Xiaomi");
-    SmartPhone smartPhoneTwo = new SmartPhone(7, "Mi 11T Pro", 32500, "Xiaomi");
+    SmartPhone smartPhoneOne = new SmartPhone(3, "Mi 9T Pro", 26000, "Xiaomi");
+    SmartPhone smartPhoneTwo = new SmartPhone(4, "Mi 11T Pro", 32500, "Xiaomi");
 
     @Test
     void shouldRemoveById() {
@@ -22,23 +22,23 @@ class ProductRepositoryTest {
         repository.save(bookTwo);
         repository.save(smartPhoneOne);
         repository.save(smartPhoneTwo);
-        repository.removeById(1);
+        repository.removeById(4);
 
-        Product[] expected = {bookTwo, smartPhoneOne, smartPhoneTwo};
+        Product[] expected = {bookOne, bookTwo, smartPhoneOne};
         Product[] actual = repository.findAll();
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    void shouldRemoveByIdIfNotExist() {
+    void shouldRemoveByIdIfNotExistAndCatchException() {
         repository.save(bookOne);
         repository.save(bookTwo);
         repository.save(smartPhoneOne);
         repository.save(smartPhoneTwo);
 
 
-       assertThrows(NotFoundException.class, () -> {repository.removeById(3);} );
+        assertThrows(NotFoundException.class, () -> { repository.removeById(5); });
     }
 
     @Test
@@ -61,10 +61,8 @@ class ProductRepositoryTest {
         repository.save(smartPhoneOne);
         repository.save(smartPhoneTwo);
 
-        Product[] actual = repository.findById(3);
+        Product[] actual = repository.findById(5);
 
         assertArrayEquals(null, actual);
     }
-
-
 }

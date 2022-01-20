@@ -4,7 +4,6 @@ import ru.netology.domain.NotFoundException;
 import ru.netology.domain.Product;
 
 public class ProductRepository {
-    //    private ProductRepository repository;
     private Product[] products = new Product[0];
 
     public void save(Product product) {
